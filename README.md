@@ -1,9 +1,9 @@
 # Programming Project Cosmology
 
 ## **`help_functions.py`**
-This file contains the functions for luminosity distance, angular distance and other various function from the task, namely eq. (1) - (5). This also containes the function to make an equally large new dataset from a given dataset by sampling, used for bootstrapping.
+This file contains the functions for luminosity distance, angular distance and other various function from the task, namely eq. (1) - (5). This also contains the function to make an equally large new dataset from a given dataset by sampling, used for bootstrapping.
 
-The curves to fit to the data are also defined in this file. For joint parameter estimation, the positions of the SNIa points are used as the SNIa data is the apparent magnitude, instead of the distance modulus. This is taken into account in the function ```curve```. For individual estimation, different curves are defined for the SNIa data and the GRB and galaxy cluster data, namely ```curve_SNIa``` and ```curve_GRB_clusters```.
+The curves to fit to the data are also defined in this file. For joint parameter estimation, the positions of the SNIa points are also extracted as the SNIa data has the apparent magnitude, instead of the distance modulus. This is taken into account in the function ```curve```. For individual estimation, different curves are defined for the SNIa data and the GRB and galaxy cluster data, namely ```curve_SNIa``` and ```curve_GRB_clusters```.
 
 A function for getting the cofidence interval is also defined.
 
@@ -15,7 +15,7 @@ This file contains the functions to get the (m-M) vs. z data from the three data
 The function to plot the original (m-M) vs. z data is also defined in this file.
 
 ## **`estimate.py`**
-In this file, the function ```param_est``` estimates the cosmological parameters using ```curve_fit```, given some initial guess for the parameters. This function is then run $N\_runs$ times. To get a value for the cosmological parameters.
+In this file, the function ```param_est``` estimates the cosmological parameters using ```curve_fit```, given some initial guess for the parameters. This function is then run $N$ times. To get a value for the cosmological parameters.
 
 The parameters can be estimated jointly by fitting one curve to the datapoints from the three datasets (bootstrapping using all the datapoints), or individually for the three datasets (bootstrapping for the individual datasets). This given by the boolean $combined$.
 
