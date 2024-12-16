@@ -19,6 +19,8 @@ plot=True               # Whether to make corner plots
 #----------------------------------------------------------------------------------------------
 initial_params = [H0, Omega_M, Omega_lambda, w, M]
 
+params = ['H0', 'Omega_M', 'Omega_lambda', 'w', 'M']
+
 file_SNIa = 'lcparam_full_long_zhel.txt'
 file_GRB = 'GRBdata.txt'
 file_clusters = 'galaxy_clusters_z_angdist.txt'
@@ -130,7 +132,14 @@ def main():
             print(f'Run: {i}')
             estimate = param_est(initial_params, combined)
             estimates[i] = estimate
-        
+        print(f'-'*50)
+        print(f'Parameter estimates')
+        print(f'-'*50)
+        for i in range(len(params)):
+            CI = confidence_interval(estimates[:, i])
+            print(f'{params[i]}')
+            print(f'\t Combined: {CI[0]:.2f}_{{{CI[1]-CI[0]:.2f}}}^{{+{CI[2]-CI[0]:.2f}}}')
+        print(f'-'*50)
         np.savetxt(f'estimate_combined_Nruns_{N_runs}.txt',estimates)
     else:
         estimates_SNIa = np.zeros((N_runs, 5))
@@ -146,6 +155,18 @@ def main():
         
         estimates = [estimates_SNIa, estimates_GRB, estimates_clusters]
         
+        print(f'-'*50)
+        print(f'Parameter estimates')
+        print(f'-'*50)
+        for i in range(len(params)):
+            CI_SNIa = confidence_interval(estimates_SNIa[:, i])
+            CI_GRB = confidence_interval(estimates_GRB[:, i])
+            CI_clusters = confidence_interval(estimates_clusters[:, i])
+            print(f'{params[i]}')
+            print(f'\t SNIa: {CI_SNIa[0]:.2f}_{{{CI_SNIa[1]-CI_SNIa[0]:.2f}}}^{{+{CI_SNIa[2]-CI_SNIa[0]:.2f}}}')
+            print(f'\t GRBs: {CI_GRB[0]:.2f}_{{{CI_GRB[1]-CI_GRB[0]:.2f}}}^{{+{CI_GRB[2]-CI_GRB[0]:.2f}}}')
+            print(f'\t Galaxy clusters: {CI_clusters[0]:.2f}_{{{CI_clusters[1]-CI_clusters[0]:.2f}}}^{{+{CI_clusters[2]-CI_clusters[0]:.2f}}}')
+        print(f'-'*50)
         np.savetxt(f'estimate_SNIa_Nruns_{N_runs}.txt',estimates_SNIa)
         np.savetxt(f'estimate_GRB_Nruns_{N_runs}.txt',estimates_GRB)
         np.savetxt(f'estimate_clusters_Nruns_{N_runs}.txt',estimates_clusters)

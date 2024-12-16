@@ -59,14 +59,20 @@ def mod_z_clusters(file_name):
     
     return z_clusters, distance_modulus_clusters
 
-def plot_all(initial_params, file_SNIa, file_GRB, file_clusters):
+def plot_all(params, file_SNIa, file_GRB, file_clusters, original_data=True):
     '''
     Plot the (m-M) vs. z points from the data. 
     For SNIa data, m vs. z is plotted instead of m-M vs. z.
     '''
     z_SNI, distance_modulus_SNI = mod_z_SNIa(file_SNIa)
-    z_GRB, distance_modulus_GRB = mod_z_GRB(initial_params, file_GRB)
+    z_GRB, distance_modulus_GRB = mod_z_GRB(params, file_GRB)
     z_clusters, distance_modulus_clusters = mod_z_clusters(file_clusters)
+    
+    fig_name = 'dist_mod_plot'
+    # get the distnace modulus of SNIa
+    if not original_data:
+        distance_modulus_SNI -= params[-1]
+        fig_name += '_fit'
     
     # Plot m - M vs. z
     plt.figure(figsize=(8, 6))
@@ -80,4 +86,4 @@ def plot_all(initial_params, file_SNIa, file_GRB, file_clusters):
     plt.title('Distance Modulus vs Redshift', fontsize=16)
     plt.legend(fontsize=12)
     plt.tight_layout()
-    plt.savefig('dist_mod_plot.png')
+    plt.savefig(f'{fig_name}.png')
