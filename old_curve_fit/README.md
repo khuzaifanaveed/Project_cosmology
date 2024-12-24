@@ -12,10 +12,10 @@ A function for getting the cofidence interval is also defined.
 ## **`read_data.py`**
 This file contains the functions to get the (m-M) vs. z data from the three datasets. To get the data from SNIa and galaxy clusters dataset, the initial guess for the parameters isn't used. For the GRB data, the $L((1+z)E_{peak})$ calibration detailed in the task is done in the function ```mod_z_GRB```.
 
-The function to plot the original and fitted (m-M) vs. z data is also defined in this file.
+The function to plot the original (m-M) vs. z data is also defined in this file.
 
 ## **`estimate.py`**
-In this file, the function ```param_est``` estimates the cosmological parameters using ```scipy.optimize.minimize```, by minimizing the residual between the observed and theoretical distance modulus, given some initial guess for the parameters. This function is then run $N$ times. To get a value for the cosmological parameters.
+In this file, the function ```param_est``` estimates the cosmological parameters using ```curve_fit```, given some initial guess for the parameters. This function is then run $N$ times. To get a value for the cosmological parameters.
 
 The parameters can be estimated jointly by fitting one curve to the datapoints from the three datasets (bootstrapping using all the datapoints), or individually for the three datasets (bootstrapping for the individual datasets). This given by the boolean $combined$.
 

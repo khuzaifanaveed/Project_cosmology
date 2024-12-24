@@ -102,7 +102,7 @@ def curve_SNIa(z, H0, Omega_M, Omega_lambda, w, M):
     
     return m
 
-def confidence_interval(data, confidence=0.68):
+def confidence_interval(data, confidence=0.84):
     '''
     Get the median values and confidence interval for a given array.
     '''
