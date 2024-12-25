@@ -1,13 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt 
-from scipy.optimize import curve_fit, root, minimize
-from random import uniform
+from scipy.optimize import minimize
 import multiprocessing
 import corner
 from matplotlib.lines import Line2D
 from help_functions import *
 from read_data import *
-from tqdm import tqdm
 
 H0 = 70                 # Hubble constant
 Omega_M = 0.3           # Matter density
@@ -16,7 +14,7 @@ w = -1                  # Dark energy EOS
 M = -18.3               # Absolute luminosity of SNIa
 
 N_runs = 1000           # Number of runs
-combined=True           # Whether to do joint estimation
+combined=False           # Whether to do joint estimation
 plot=True               # Whether to make corner plots
 
 #----------------------------------------------------------------------------------------------
@@ -188,11 +186,11 @@ def main():
     # Making slightly different initial guess for each run to ensure that we do not get stuck in a local minimum. This results is larger error values !
     initial_params_new_list = []
     for i in range(N_runs):
-        H0_new = H0 + H0*np.random.normal(0,0.1)
-        Omega_M_new = Omega_M + Omega_M*np.random.normal(0,0.1)
-        Omega_lambda_new = Omega_lambda + Omega_lambda*np.random.normal(0,0.1)
-        w_new = w + w*np.random.normal(0,0.1)
-        M_new = M + M*np.random.normal(0,0.1)
+        H0_new = H0 + H0*np.random.normal(0,0.2)
+        Omega_M_new = Omega_M + Omega_M*np.random.normal(0,0.2)
+        Omega_lambda_new = Omega_lambda + Omega_lambda*np.random.normal(0,0.2)
+        w_new = w + w*np.random.normal(0,0.2)
+        M_new = M + M*np.random.normal(0,0.2)
         
         initial_params_new = np.array([H0_new, Omega_M_new, Omega_lambda_new, w_new, M_new])
         initial_params_new_list.append(initial_params_new)
